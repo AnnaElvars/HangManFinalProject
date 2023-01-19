@@ -14,7 +14,7 @@ class _GamePageState extends State<GamePage> {
   String words = '';
   List<String>? word;
   var wordToGuess = <String>[];
-  int nosOfGuesses = 5;
+  int nosOfGuesses = 9;
   String alertBoxWord = '';
   int wordsMatched = 0;
   String verdict = '';
@@ -65,7 +65,7 @@ class _GamePageState extends State<GamePage> {
     word = words.toUpperCase().split('');
     alertBoxWord = words.toUpperCase();
     wordToGuess.clear();
-    nosOfGuesses = 5;
+    nosOfGuesses = 9;
     wordsMatched = 0;
 
     for (var i = 0; i < word!.length; i++) {
@@ -247,7 +247,7 @@ Widget build(BuildContext context) {
                 Container(
                   decoration: BoxDecoration(
                     image: DecorationImage(
-                      image: AssetImage('images/9.png'),
+                      image: AssetImage('images/[].png'),
                       fit: BoxFit.cover,
                     ),
                   ),
