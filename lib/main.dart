@@ -1,7 +1,7 @@
 import 'package:flutter/services.dart';
 import 'package:flutter/material.dart';
 import 'game_page.dart';
-import 'hangman_function.dart';
+import 'package:flutter/src/material/material_button.dart';
 
 void main() {
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitDown]);
