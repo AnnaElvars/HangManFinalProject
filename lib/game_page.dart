@@ -1,10 +1,8 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/rendering.dart';
 import 'dart:core';
-
-import 'package:hangman_final_project/main.dart';
+import 'main.dart';
 
 class GamePage extends StatefulWidget {
   @override
@@ -30,7 +28,7 @@ List<String> correctLetters = [
 ]; // List of Characters in WordToGuess
 
 Map correctAnswersMap = correctLetters
-    .asMap(); //mapped list to use to show number of characters on screen
+    .asMap(); //mapped list I did not use to show number of characters on screen
 List<String> wrongAnswers =
     []; //List to show wrong guesses and to count number of tries
 int numberOfTries =
@@ -42,6 +40,18 @@ List correctAnswers =
     []; //list to show correctly guessed characters in WordToGuess
 int wrongTries = wrongAnswers.length; //
 int charactersLines = correctLetters.length;
+String result = '__________';
+//result.replaceRange(i,correctLetters.length-1,'_');
+String youWin = 'images/youWin.png';
+//bool noMoreTries = false;
+
+void Letters(String letter) {
+  for (int i = 0; i <= correctLetters.length - 1; i++) {
+    if (letter == correctLetters[i]) {
+      result = result.replaceRange(i, i + 1, letter);
+    }
+  }
+}
 
 class _GamePageState extends State<GamePage> {
   @override
@@ -62,11 +72,12 @@ class _GamePageState extends State<GamePage> {
               padding: const EdgeInsets.all(8.0),
               child: Container(
                 child: Text(
-                  'Word Would Appear Here',
+                  result,
                   style: TextStyle(
                     fontFamily: 'AmaticSC',
-                    fontSize: 30,
+                    fontSize: 50,
                     color: Colors.white,
+                    letterSpacing: 5,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
@@ -137,13 +148,12 @@ void _conclusion() {
   if (correctLetters.contains(inputLetter)) {
     correctAnswers.add(inputLetter);
     hasUserWon();
-    print('Correct Letter');
+    Letters(inputLetter);
   } else {
     if (!wrongAnswers.contains(inputLetter)) {
       wrongAnswers.add(inputLetter); //no doubles
-      print('i am lost');
+      wrongTries++;
       hasUserLost();
-      print(wrongTries);
     }
   }
 }
@@ -159,9 +169,10 @@ void hasUserWon() {
 @override
 void hasUserLost() {
   //function to determine if user has lost
-  if (wrongAnswers.length == numberOfTries) {
-    print('YOU ARE A LOSER!');
-    print('The word was' + wordToGuess);
+  if (wrongTries == numberOfTries) {
+    print('You have lost');
+
+    //noMoreTries = true;
   }
 }
 
@@ -186,12 +197,7 @@ class _imageUpdateState extends State<imageUpdate> {
               child: Image.asset('images/$wrongTries.png'),
             ),
           ),
-          Center(
-            child: Container(
-              color: Colors.brown.shade300,
-              child: Image.asset('images/1.png'),
-            ),
-          ),
+          //if (noMoreTries) GameOver(),
         ],
       ),
     );
